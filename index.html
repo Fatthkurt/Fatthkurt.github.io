@@ -136,8 +136,32 @@
 
   /* --------------- HERO --------------- */
   .hero{ padding-top: 88px; padding-bottom: 88px; border-bottom: 1px solid var(--border); }
-  .hero-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items:center; }
-  @media (max-width: 960px){ .hero-grid{ grid-template-columns: 1fr; gap: 48px; } }
+  .hero-grid{ display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 64px; align-items:center; }
+  @media (max-width: 900px){ .hero-grid{ grid-template-columns: 1fr; gap: 44px; } }
+  .hero-inner{ max-width: 620px; }
+
+  .hero-photo{
+    position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
+    aspect-ratio: 4 / 5; background: var(--surface-2);
+  }
+  .hero-photo img{
+    width: 100%; height: 100%; object-fit: cover; display:block;
+    filter: saturate(1.05) contrast(1.05);
+    transition: filter .5s ease, transform .5s ease;
+  }
+  .hero-photo:hover img{ filter: saturate(1.15) contrast(1.05); transform: scale(1.02); }
+  .hero-photo::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.55) 100%),
+                linear-gradient(120deg, var(--accent-soft) 0%, transparent 35%);
+    mix-blend-mode: normal;
+  }
+  .hero-photo .tag-corner{
+    position:absolute; left: 14px; bottom: 14px; z-index: 1;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: #e7eaf0;
+    display:flex; align-items:center; gap: 7px;
+  }
+  .hero-photo .tag-corner .pulse-dot{ width:6px; height:6px; }
 
   .status-badge{
     display:inline-flex; align-items:center; gap:8px; font-family: var(--mono); font-size: 12.5px;
@@ -151,23 +175,21 @@
   }
   @keyframes pulse{ 0%{ transform: scale(0.6); opacity: .9;} 100%{ transform: scale(2.2); opacity: 0;} }
 
-  .hero h1{ font-size: clamp(34px, 5vw, 56px); line-height: 1.05; margin-bottom: 22px; }
+  .hero h1{ font-size: clamp(36px, 5.6vw, 60px); line-height: 1.05; margin-bottom: 22px; }
   .hero h1 .accent-word{ color: var(--accent); }
-  .hero p.lede{ font-size: 17px; color: var(--text-dim); max-width: 52ch; margin-bottom: 32px; }
-  .hero-ctas{ display:flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
-  .hero-stats{ display:flex; gap: 32px; flex-wrap:wrap; }
-  .stat b{ display:block; font-family: var(--mono); font-size: 22px; color: var(--text); }
-  .stat span{ font-size: 12.5px; color: var(--text-faint); }
+  .hero p.lede{ font-size: 17.5px; color: var(--text-dim); max-width: 60ch; margin-bottom: 32px; }
+  .hero-ctas{ display:flex; gap: 12px; flex-wrap: wrap; }
 
   /* --------------- PIPELINE DIAGRAM --------------- */
   .pipeline-card{
-    border: 1px solid var(--border); border-radius: 14px; background: var(--surface);
-    padding: 22px; box-shadow: var(--shadow);
+    border: 1px solid var(--border); border-radius: 12px; background: var(--surface-2);
+    padding: 20px;
   }
   .pipeline-card .head{ display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px; }
   .pipeline-card .head .dots{ display:flex; gap:6px; }
   .pipeline-card .head .dots span{ width:9px; height:9px; border-radius:50%; background: var(--border); }
   .pipeline-card .head .label{ font-family: var(--mono); font-size: 11.5px; color: var(--text-faint); }
+  .pipeline-card .caption{ margin-top: 12px; font-family: var(--mono); font-size: 11px; color: var(--text-faint); text-align:center; }
   .pipeline-svg{ width: 100%; height: auto; display:block; }
   .p-node-circle{ fill: var(--surface-2); stroke: var(--border); stroke-width: 1.2; }
   .p-node-text{ font-family: var(--mono); font-size: 9.5px; fill: var(--text-dim); }
@@ -186,6 +208,11 @@
   .proj-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 14px; overflow:hidden; }
   @media (max-width: 780px){ .proj-grid{ grid-template-columns: 1fr; } }
   .proj-card{ background: var(--surface); padding: 30px; display:flex; flex-direction: column; gap: 14px; }
+  .proj-card.featured{ grid-column: 1 / -1; display:grid; grid-template-columns: 1.05fr 0.95fr; gap: 36px; align-items:center; }
+  .proj-card.featured .copy{ display:flex; flex-direction:column; gap: 14px; height: 100%; }
+  @media (max-width: 900px){ .proj-card.featured{ grid-template-columns: 1fr; gap: 26px; } }
+  .proj-card.wide{ grid-column: 1 / -1; }
+  .proj-card.wide p{ max-width: 70ch; }
   .proj-card .top{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
   .proj-card h3{ font-size: 18px; }
   .proj-badge{
@@ -317,77 +344,18 @@
   <!-- HERO -->
   <section class="hero" style="border-bottom:1px solid var(--border); padding-top:72px;">
     <div class="wrap hero-grid">
-      <div>
+      <div class="hero-inner">
         <h1>Building production-grade <span class="accent-word">AI systems</span> &amp; industrial data pipelines.</h1>
-        <p class="lede">AI &amp; Automation Engineer shipping RAG pipelines, LLM agent workflows, and process automation at Siemens and data engineering foundation built at BMW.</p>
+        <p class="lede">AI &amp; Automation Engineer shipping RAG pipelines, LLM agent workflows, and process automation at Siemens — on a data engineering foundation built at BMW.</p>
         <div class="hero-ctas">
           <a href="#projects" class="btn btn-primary">View Projects</a>
           <a href="assets/cv_en.pdf" download class="btn btn-ghost">Download CV ↓</a>
         </div>
-        <div class="hero-stats">
-          <div class="stat"><b>40</b><span>engineers using his RAG tool</span></div>
-          <div class="stat"><b>500</b><span>docs indexed in production</span></div>
-          <div class="stat"><b>230+</b><span>tables across pipelines shipped</span></div>
-        </div>
       </div>
 
-      <div class="pipeline-card">
-        <div class="head">
-          <div class="dots"><span></span><span></span><span></span></div>
-          <div class="label">rag_pipeline.trace</div>
-        </div>
-        <svg class="pipeline-svg" viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg">
-          <path class="p-edge" d="M60,40 L60,110" />
-          <path class="p-flow" d="M60,40 L60,110" />
-          <path class="p-edge" d="M60,110 L60,180" />
-          <path class="p-flow" d="M60,110 L60,180" />
-          <path class="p-edge" d="M60,180 C60,220 120,230 150,240" />
-          <path class="p-flow" d="M60,180 C60,220 120,230 150,240" />
-          <path class="p-edge" d="M300,40 L300,110" />
-          <path class="p-flow" d="M300,40 L300,110" />
-          <path class="p-edge" d="M300,110 L300,180" />
-          <path class="p-flow" d="M300,110 L300,180" />
-          <path class="p-edge" d="M300,180 C300,220 240,230 210,240" />
-          <path class="p-flow" d="M300,180 C300,220 240,230 210,240" />
-          <path class="p-edge" d="M150,260 L210,260" />
-          <path class="p-flow" d="M150,260 L210,260" />
-
-          <g>
-            <circle class="p-node-circle" cx="60" cy="24" r="20"/>
-            <text class="p-node-title" x="60" y="27" text-anchor="middle">DOC</text>
-            <text class="p-node-text" x="60" y="58" text-anchor="middle">standards corpus</text>
-          </g>
-          <g>
-            <circle class="p-node-circle" cx="60" cy="110" r="20"/>
-            <text class="p-node-title" x="60" y="113" text-anchor="middle">CHUNK</text>
-            <text class="p-node-text" x="60" y="144" text-anchor="middle">tuned splits</text>
-          </g>
-          <g>
-            <circle class="p-node-circle" cx="60" cy="196" r="20"/>
-            <text class="p-node-title" x="60" y="199" text-anchor="middle">EMBED</text>
-          </g>
-
-          <g>
-            <circle class="p-node-circle" cx="300" cy="24" r="20"/>
-            <text class="p-node-title" x="300" y="27" text-anchor="middle">QUERY</text>
-            <text class="p-node-text" x="300" y="58" text-anchor="middle">engineer asks</text>
-          </g>
-          <g>
-            <circle class="p-node-circle" cx="300" cy="110" r="20"/>
-            <text class="p-node-title" x="300" y="113" text-anchor="middle">CHROMA</text>
-            <text class="p-node-text" x="300" y="144" text-anchor="middle">vector db</text>
-          </g>
-          <g>
-            <circle class="p-node-circle" cx="300" cy="196" r="20"/>
-            <text class="p-node-title" x="300" y="199" text-anchor="middle">RETR.</text>
-          </g>
-
-          <g class="p-node-active">
-            <circle class="p-node-circle" cx="180" cy="260" r="24"/>
-            <text class="p-node-title" x="180" y="256" text-anchor="middle" style="fill:var(--accent)">LLM</text>
-            <text class="p-node-text" x="180" y="270" text-anchor="middle">answer</text>
-          </g>
-        </svg>
+      <div class="hero-photo">
+        <img src="assets/profile.png" alt="Fatih Kurt" />
+        <span class="tag-corner"><span class="pulse-dot"></span> fatih_kurt.dev</span>
       </div>
     </div>
   </section>
@@ -404,14 +372,77 @@
       </div>
 
       <div class="proj-grid reveal">
-        <div class="proj-card">
-          <div class="top">
-            <h3>Local-First RAG Pipeline</h3>
-            <span class="proj-badge badge-flagship">Flagship</span>
+        <div class="proj-card featured">
+          <div class="copy">
+            <div class="top">
+              <h3>Local-First RAG Pipeline</h3>
+              <span class="proj-badge badge-flagship">Flagship</span>
+            </div>
+            <p>100% on-prem retrieval-augmented generation stack — no data leaves the machine. Chunking and retrieval tuned against real queries, served through a self-hosted vLLM endpoint, evaluated with RAGAS before rollout.</p>
+            <p>The diagram shows the two halves of the system: the offline ingestion path that turns a raw document corpus into embeddings, and the online query path that retrieves the relevant chunks and grounds the LLM's answer in them.</p>
+            <div class="tags">
+              <span class="tag">ChromaDB</span><span class="tag">vLLM</span><span class="tag">RAGAS</span><span class="tag">Docker</span><span class="tag">FastAPI</span>
+            </div>
           </div>
-          <p>100% on-prem retrieval-augmented generation stack — no data leaves the machine. Chunking and retrieval tuned against real queries, served through a self-hosted vLLM endpoint, evaluated with RAGAS before rollout.</p>
-          <div class="tags">
-            <span class="tag">ChromaDB</span><span class="tag">vLLM</span><span class="tag">RAGAS</span><span class="tag">Docker</span><span class="tag">FastAPI</span>
+
+          <div class="pipeline-card">
+            <div class="head">
+              <div class="dots"><span></span><span></span><span></span></div>
+              <div class="label">rag_pipeline.trace</div>
+            </div>
+            <svg class="pipeline-svg" viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="RAG pipeline: documents are chunked and embedded into a vector database; an engineer's query is retrieved against it and answered by the LLM.">
+              <path class="p-edge" d="M60,40 L60,110" />
+              <path class="p-flow" d="M60,40 L60,110" />
+              <path class="p-edge" d="M60,110 L60,180" />
+              <path class="p-flow" d="M60,110 L60,180" />
+              <path class="p-edge" d="M60,180 C60,220 120,230 150,240" />
+              <path class="p-flow" d="M60,180 C60,220 120,230 150,240" />
+              <path class="p-edge" d="M300,40 L300,110" />
+              <path class="p-flow" d="M300,40 L300,110" />
+              <path class="p-edge" d="M300,110 L300,180" />
+              <path class="p-flow" d="M300,110 L300,180" />
+              <path class="p-edge" d="M300,180 C300,220 240,230 210,240" />
+              <path class="p-flow" d="M300,180 C300,220 240,230 210,240" />
+              <path class="p-edge" d="M150,260 L210,260" />
+              <path class="p-flow" d="M150,260 L210,260" />
+
+              <g>
+                <circle class="p-node-circle" cx="60" cy="24" r="20"/>
+                <text class="p-node-title" x="60" y="27" text-anchor="middle">DOC</text>
+                <text class="p-node-text" x="60" y="58" text-anchor="middle">standards corpus</text>
+              </g>
+              <g>
+                <circle class="p-node-circle" cx="60" cy="110" r="20"/>
+                <text class="p-node-title" x="60" y="113" text-anchor="middle">CHUNK</text>
+                <text class="p-node-text" x="60" y="144" text-anchor="middle">tuned splits</text>
+              </g>
+              <g>
+                <circle class="p-node-circle" cx="60" cy="196" r="20"/>
+                <text class="p-node-title" x="60" y="199" text-anchor="middle">EMBED</text>
+              </g>
+
+              <g>
+                <circle class="p-node-circle" cx="300" cy="24" r="20"/>
+                <text class="p-node-title" x="300" y="27" text-anchor="middle">QUERY</text>
+                <text class="p-node-text" x="300" y="58" text-anchor="middle">engineer asks</text>
+              </g>
+              <g>
+                <circle class="p-node-circle" cx="300" cy="110" r="20"/>
+                <text class="p-node-title" x="300" y="113" text-anchor="middle">CHROMA</text>
+                <text class="p-node-text" x="300" y="144" text-anchor="middle">vector db</text>
+              </g>
+              <g>
+                <circle class="p-node-circle" cx="300" cy="196" r="20"/>
+                <text class="p-node-title" x="300" y="199" text-anchor="middle">RETR.</text>
+              </g>
+
+              <g class="p-node-active">
+                <circle class="p-node-circle" cx="180" cy="260" r="24"/>
+                <text class="p-node-title" x="180" y="256" text-anchor="middle" style="fill:var(--accent)">LLM</text>
+                <text class="p-node-text" x="180" y="270" text-anchor="middle">answer</text>
+              </g>
+            </svg>
+            <div class="caption">ingest ↓ · retrieve ↓ · generate — fully on-prem</div>
           </div>
         </div>
 
@@ -437,7 +468,7 @@
           </div>
         </div>
 
-        <div class="proj-card">
+        <div class="proj-card wide">
           <div class="top">
             <h3>RL for Adaptive Traffic Signal Control</h3>
             <span class="proj-badge badge-research">Thesis · 1.3</span>
