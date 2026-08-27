@@ -446,6 +446,78 @@
           </div>
         </div>
 
+        <div class="proj-card featured">
+          <div class="copy">
+            <div class="top">
+              <h3>Dual-Agent Coding Harness</h3>
+              <span class="proj-badge badge-research">Agent eval · OSS</span>
+            </div>
+            <p>A <b>coder</b> agent implements a REST API spec inside a network-isolated Docker sandbox. A separate <b>black-box tester</b> agent — no file, shell, or git access — probes the running service over HTTP and checks its behaviour against the spec. Neither agent ever sees the golden test suite.</p>
+            <p>The harness is the real product: it validates every ledger append, gates file writes behind task claims, measures scope creep, merges bug reports back into the task list, and records every token, tool call, and transcript. The coder/tester round loop is a checkpointed LangGraph that resumes mid-run after a crash.</p>
+            <div class="tags">
+              <span class="tag">Python</span><span class="tag">LangGraph</span><span class="tag">Docker</span><span class="tag">Claude</span><span class="tag">Golden tests</span>
+              <a class="tag" href="https://github.com/Fatthkurt/dual-agent-harness" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+
+          <div class="pipeline-card">
+            <div class="head">
+              <div class="dots"><span></span><span></span><span></span></div>
+              <div class="label">harness.trace</div>
+            </div>
+            <svg class="pipeline-svg" viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dual-agent harness: a coder agent builds the API from the spec inside a sandbox; a black-box tester agent probes it over HTTP and files bug reports back to the coder; the harness measures everything against a hidden golden test suite.">
+              <path class="p-edge" d="M180,46 C130,62 70,78 70,95" />
+              <path class="p-flow" d="M180,46 C130,62 70,78 70,95" />
+              <path class="p-edge" d="M180,46 C230,62 290,78 290,95" />
+              <path class="p-flow" d="M180,46 C230,62 290,78 290,95" />
+              <path class="p-edge" d="M90,115 L160,115" />
+              <path class="p-flow" d="M90,115 L160,115" />
+              <path class="p-edge" d="M200,115 L270,115" />
+              <path class="p-flow" d="M200,115 L270,115" />
+              <path class="p-edge" d="M290,135 C290,168 70,168 70,135" />
+              <path class="p-flow" d="M290,135 C290,168 70,168 70,135" />
+              <path class="p-edge" d="M70,135 C70,176 140,188 158,196" />
+              <path class="p-flow" d="M70,135 C70,176 140,188 158,196" />
+              <path class="p-edge" d="M290,135 C290,176 220,188 202,196" />
+              <path class="p-flow" d="M290,135 C290,176 220,188 202,196" />
+              <path class="p-edge" d="M180,234 L180,254" />
+              <path class="p-flow" d="M180,234 L180,254" />
+
+              <g>
+                <circle class="p-node-circle" cx="180" cy="26" r="20"/>
+                <text class="p-node-title" x="180" y="29" text-anchor="middle">SPEC</text>
+                <text class="p-node-text" x="180" y="60" text-anchor="middle">REST API spec</text>
+              </g>
+              <g>
+                <circle class="p-node-circle" cx="70" cy="115" r="20"/>
+                <text class="p-node-title" x="70" y="118" text-anchor="middle">CODER</text>
+                <text class="p-node-text" x="70" y="149" text-anchor="middle">docker · no net</text>
+              </g>
+              <g>
+                <circle class="p-node-circle" cx="180" cy="115" r="18"/>
+                <text class="p-node-title" x="180" y="118" text-anchor="middle">API</text>
+              </g>
+              <g>
+                <circle class="p-node-circle" cx="290" cy="115" r="20"/>
+                <text class="p-node-title" x="290" y="118" text-anchor="middle">TESTER</text>
+                <text class="p-node-text" x="290" y="149" text-anchor="middle">http only</text>
+              </g>
+              <text class="p-node-text" x="180" y="165" text-anchor="middle">bug reports</text>
+
+              <g class="p-node-active">
+                <circle class="p-node-circle" cx="180" cy="210" r="24"/>
+                <text class="p-node-title" x="180" y="206" text-anchor="middle" style="fill:var(--accent)">HARNESS</text>
+                <text class="p-node-text" x="180" y="220" text-anchor="middle">measures all</text>
+              </g>
+              <g>
+                <circle class="p-node-circle" cx="180" cy="271" r="17"/>
+                <text class="p-node-title" x="180" y="274" text-anchor="middle">GOLD</text>
+              </g>
+            </svg>
+            <div class="caption">coder ⇄ tester · every token &amp; diff measured against hidden tests</div>
+          </div>
+        </div>
+
         <div class="proj-card">
           <div class="top">
             <h3>B2B AI Concierge — Boutique Hotels</h3>
@@ -585,7 +657,7 @@
         </div>
         <div class="stack-cat">
           <div class="cat-title">AI &amp; Data</div>
-          <div class="chips"><span class="chip">RAG Architecture</span><span class="chip">Vector DBs</span><span class="chip">LangChain</span><span class="chip">CrewAI</span><span class="chip">Embeddings</span><span class="chip">Prompt Eval</span></div>
+          <div class="chips"><span class="chip">RAG Architecture</span><span class="chip">Vector DBs</span><span class="chip">LangChain</span><span class="chip">LangGraph</span><span class="chip">CrewAI</span><span class="chip">Embeddings</span><span class="chip">Prompt Eval</span></div>
         </div>
         <div class="stack-cat">
           <div class="cat-title">MLOps &amp; Cloud</div>
